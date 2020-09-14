@@ -13,7 +13,7 @@ namespace B01ViczianGabor
 
         static void Beolvasas()
         {
-            StreamReader sr = new StreamReader("adatok.txt");
+            StreamReader sr = new StreamReader("adatok.txt",true);
             string[] atmeneti;
             int i = 0;
             while (!sr.EndOfStream)
@@ -31,7 +31,7 @@ namespace B01ViczianGabor
 
         }
         static int min = tomb[0];
-        private static int Minimumertek (int min)
+        static int Minimumertek (int min)
         {
             
             for (int i = 0; i < tomb.Length; i++)
@@ -46,11 +46,36 @@ namespace B01ViczianGabor
             
 
         }
+        static int oszthato = 0;
+        static int Egyediek(int oszthato)
+        {
+            for (int i = 0; i < tomb.Length; i++)
+            {
+                if (tomb[i] % 5 ==0)
+                {
+                    if (tomb[i] % 4 !=0)
+                    {
+                        StreamWriter sw = new StreamWriter("adatok.txt");
+                        for (int j = 0; j < tomb.Length; j++)
+                        {
+                            sw.WriteLine(tomb[i]);
+                        }
+
+                        sw.Close();
+                        oszthato++;
+                    }
+                }
+            }
+            return oszthato;
+            
+        }
         static void Main(string[] args)
         {
             Beolvasas();
             Minimumertek(min);
             Console.WriteLine("A minimum: {0}", Minimumertek(min));
+            Egyediek(oszthato);
+            Console.WriteLine("5 osztható de 4 nem oszthatóak száma: {0}", Egyediek(oszthato));
             Console.ReadKey();
         }
     }
